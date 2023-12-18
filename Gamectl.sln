@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gamectl", "gamectl\gamectl.csproj", "{5ED3AFF0-E6D1-4C8E-A821-EEA168377760}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamectl", "Gamectl\Gamectl.csproj", "{5ED3AFF0-E6D1-4C8E-A821-EEA168377760}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

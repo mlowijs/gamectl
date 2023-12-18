@@ -1,8 +1,8 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
-using gamectl.Kde;
+using Gamectl.Kde;
 
-namespace gamectl;
+namespace Gamectl;
 
 public static class DisplayMode
 {
@@ -10,6 +10,9 @@ public static class DisplayMode
     
     public static void SetDisplayMode(string mode)
     {
+        if (Drm.GetCards().Length > 1)
+            return;
+        
         var match = ModeRegex.Match(mode);
 
         var (width, height, refreshRate) = (

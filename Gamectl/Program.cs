@@ -1,15 +1,6 @@
 ﻿using System.CommandLine;
 using System.Diagnostics;
-using gamectl;
-using gamectl.Kde;
-
-const int DefaultTdp = 6;
-const string DefaultEpp = "power";
-
-const int PluggedInTdp = 20;
-const string PluggedInEpp = "balance_performance";
-
-Console.WriteLine(Environment.GetEnvironmentVariable("XDG_CURRENT_DESKTOP"));
+using Gamectl;
 
 if (Libc.GetEffectiveUserId() != 0 && !Debugger.IsAttached)
 {
@@ -17,7 +8,7 @@ if (Libc.GetEffectiveUserId() != 0 && !Debugger.IsAttached)
     return;
 }
 
-var dconfig = KscreenDoctor.GetDisplayConfiguration();
+Configuration.LoadConfiguration();
 
 var eOption = new Option<string?>("-e", "Energy Performance Preference");
 var tOption = new Option<int?>("-t", "TDP (in W)");
@@ -65,10 +56,10 @@ rootCommand.SetHandler((e, t, g, m, c) =>
     Process.Start(startInfo)!.WaitForExit();
     
     if (t is not null)
-        Ryzenadj.SetTdp(DefaultTdp);
+        Ryzenadj.SetTdp(Configuration.DefaultTdp);
     
     if (e is not null)
-        Sysfs.SetEnergyPerformancePreference(DefaultEpp);
+        Sysfs.SetEnergyPerformancePreference(Configuration.DefaultEpp);
 }, eOption, tOption, gOption, mOption, cArgument);
 
 await rootCommand.InvokeAsync(args);

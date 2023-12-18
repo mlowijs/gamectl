@@ -1,4 +1,4 @@
-namespace gamectl.Kde;
+namespace Gamectl.Kde;
 
 public record KscreenDoctorSize(
     int Height,

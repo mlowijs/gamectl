@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace gamectl;
+namespace Gamectl;
 
 public static class Libc
 {

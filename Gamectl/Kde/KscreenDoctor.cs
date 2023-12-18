@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Text.Json;
 
-namespace gamectl.Kde;
+namespace Gamectl.Kde;
 
 public static class KscreenDoctor
 {
