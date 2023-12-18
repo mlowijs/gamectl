@@ -31,6 +31,9 @@ rootCommand.SetHandler((e, t, g, m, c) =>
     if (e is not null)
         Sysfs.SetEnergyPerformancePreference(e);
     
+    // Drop privileges
+    Libc.SetEffectiveUserId(Libc.GetUserId());
+    
     if (m is not null)
         DisplayMode.SetDisplayMode(m);
 
@@ -46,14 +49,14 @@ rootCommand.SetHandler((e, t, g, m, c) =>
     var commandString = string.Join(' ', c);
     var commandToExecute = g is not null ? Gamescope.GetGamescopeCommandLine(g.Value, commandString) : commandString;
 
-    var startInfo = new ProcessStartInfo(
-        "systemd-inhibit",
-        $"""--what=idle:sleep --who=gamectl --why="Running game" -- {commandToExecute}""")
-    {
-        UserName = Libc.GetUserNameByUserId(Libc.GetUserId())
-    };
-    
-    Process.Start(startInfo)!.WaitForExit();
+    Process
+        .Start(
+            "systemd-inhibit",
+            $"""--what=idle:sleep --who=gamectl --why="Running game" -- {commandToExecute}""")
+        .WaitForExit();
+
+    // Regain privileges
+    Libc.SetEffectiveUserId(0);
     
     if (t is not null)
         Ryzenadj.SetTdp(Configuration.DefaultTdp);
