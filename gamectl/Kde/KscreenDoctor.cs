@@ -21,4 +21,9 @@ public static class KscreenDoctor
         var jsonString = process.StandardOutput.ReadToEnd();
         return JsonSerializer.Deserialize<KscreenDoctorResult>(jsonString, SerializerOptions)!;
     }
+
+    public static void SetDisplayMode(string output, string mode)
+    {
+        Process.Start("/usr/bin/kscreen-doctor", $"output.{output}.mode.{mode}").WaitForExit();
+    }
 }

@@ -21,7 +21,18 @@ public static class DisplayMode
         {
             case "KDE":
                 var displayConfiguration = KscreenDoctor.GetDisplayConfiguration();
+                var primaryDisplay = displayConfiguration.Outputs
+                    .Where(o => o is { Enabled: true, Connected: true })
+                    .MaxBy(o => o.Priority);
+
+                var selectedMode = primaryDisplay!.Modes
+                    .Where(m => m.Size.Width == width && m.Size.Height == height)
+                    .FirstOrDefault(m => Math.Round(m.RefreshRate) == refreshRate);
+
+                if (selectedMode is null)
+                    return;
                 
+                KscreenDoctor.SetDisplayMode(primaryDisplay.Name, selectedMode.Id);
                 return;
             
             default:
