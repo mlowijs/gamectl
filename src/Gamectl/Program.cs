@@ -14,6 +14,7 @@ var eOption = new Option<string?>("-e", "Set Energy Performance Preference");
 var tOption = new Option<int?>("-t", "Set TDP (in Watts)");
 var gOption = new Option<int?>("-g", "Enable Gamescope with specified max FPS");
 var mOption = new Option<string?>("-m", "Set display mode, e.g. '1920x1080@120'");
+var pOption = new Option<string?>("-p", "Park CPU cores, e.g. '4,5,6,7'");
 var dOption = new Option<bool>("-d", "Daemon mode, for autosetting TDP on AC");
 var cArgument = new Argument<string[]?>("command", () => null, "The command to run");
 
@@ -22,9 +23,10 @@ rootCommand.AddOption(eOption);
 rootCommand.AddOption(tOption);
 rootCommand.AddOption(gOption);
 rootCommand.AddOption(mOption);
+rootCommand.AddOption(pOption);
 rootCommand.AddArgument(cArgument);
 
-rootCommand.SetHandler((e, t, g, m, d, c) =>
+rootCommand.SetHandler((e, t, g, m, p, d, c) =>
 {
     if (d)
     {
@@ -36,6 +38,14 @@ rootCommand.SetHandler((e, t, g, m, d, c) =>
     
     if (e is not null)
         Sysfs.SetEnergyPerformancePreference(e);
+
+    var cores = (p ?? "")
+        .Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+        .Select(int.Parse)
+        .ToArray();
+    
+    if (p is not null)
+        Sysfs.SetCorePower(cores, false);
     
     // Drop privileges
     Libc.SetEffectiveUserId(Libc.GetUserId());
@@ -72,6 +82,9 @@ rootCommand.SetHandler((e, t, g, m, d, c) =>
     
     if (e is not null && Configuration.DefaultEpp is not null)
         Sysfs.SetEnergyPerformancePreference(Configuration.DefaultEpp);
-}, eOption, tOption, gOption, mOption, dOption, cArgument);
+    
+    if (p is not null)
+        Sysfs.SetCorePower(cores, true);
+}, eOption, tOption, gOption, mOption, pOption, dOption, cArgument);
 
 await rootCommand.InvokeAsync(args);

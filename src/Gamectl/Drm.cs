@@ -4,6 +4,6 @@ public static class Drm
 {
     public static string[] GetCards()
     {
-        return Directory.EnumerateDirectories("/sys/class/drm", "card?").ToArray();
+        return Directory.GetDirectories("/sys/class/drm", "card?");
     }
 }
