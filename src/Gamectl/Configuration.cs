@@ -20,13 +20,19 @@ public static class Configuration
             if (!File.Exists(path))
                 continue;
 
-            var lines = File.ReadAllLines(path).Where(l => !string.IsNullOrWhiteSpace(l) && l.Contains('='));
+            var lines = File.ReadAllLines(path);
 
-            foreach (var line in lines)
+            foreach (var line in lines.Where(l => !string.IsNullOrWhiteSpace(l)))
             {
-                var parts = line.Split("=", 2, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                var entryAndComment = line.Split("#", 2, StringSplitOptions.TrimEntries);
+                var entry = entryAndComment[0];
+                
+                if (string.IsNullOrWhiteSpace(entry) || !entry.Contains('='))
+                    continue;
+                
+                var keyValue = entry.Split("=", 2, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
-                SetProperties(parts[0], parts[1]);
+                SetProperties(keyValue[0], keyValue[1]);
             }
         }
     }
