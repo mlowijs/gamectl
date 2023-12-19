@@ -10,7 +10,7 @@ public static class Sysfs
             File.WriteAllText(Path.Join(policy, "energy_performance_preference"), epp);
     }
 
-    public static void SetCorePower(IEnumerable<int> cores, bool online)
+    public static void SetCpuCorePower(IEnumerable<int> cores, bool online)
     {
         foreach (var core in cores)
         {

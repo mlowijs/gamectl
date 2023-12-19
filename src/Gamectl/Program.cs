@@ -28,24 +28,29 @@ rootCommand.AddArgument(cArgument);
 
 rootCommand.SetHandler((e, t, g, m, p, d, c) =>
 {
-    if (d)
-    {
-        // daemon mode
-    }
-    
     if (t is not null)
         Ryzenadj.SetTdp(t.Value);
     
     if (e is not null)
         Sysfs.SetEnergyPerformancePreference(e);
 
-    var cores = (p ?? "")
-        .Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-        .Select(int.Parse)
-        .ToArray();
+    var coreSpecifications = (p ?? "")
+        .Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+    var cores = new List<int>();
+
+    foreach (var spec in coreSpecifications)
+    {
+        var coreRange = spec
+            .Split('-', 2, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .ToArray();
+        
+        cores.AddRange(coreRange.Length == 2 ? Enumerable.Range(coreRange[0], coreRange[1] - coreRange[0] + 1) : coreRange);
+    }
     
     if (p is not null)
-        Sysfs.SetCorePower(cores, false);
+        Sysfs.SetCpuCorePower(cores, false);
     
     // Drop privileges
     Libc.SetEffectiveUserId(Libc.GetUserId());
@@ -84,7 +89,7 @@ rootCommand.SetHandler((e, t, g, m, p, d, c) =>
         Sysfs.SetEnergyPerformancePreference(Configuration.DefaultEpp);
     
     if (p is not null)
-        Sysfs.SetCorePower(cores, true);
+        Sysfs.SetCpuCorePower(cores, true);
 }, eOption, tOption, gOption, mOption, pOption, dOption, cArgument);
 
 await rootCommand.InvokeAsync(args);
