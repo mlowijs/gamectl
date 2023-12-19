@@ -16,6 +16,7 @@ usage: gamectl <options> -- <command>
 -t <tdp>    Set TDP (in Watts)
 -g <fps>    Enable Gamescope with specified max FPS
 -m <wxh@r>  Set display mode, e.g. '1920x1080@120'
+-p <cores>  Park CPU cores, e.g. '4,5,6-11'
 ```
 
 ### Example

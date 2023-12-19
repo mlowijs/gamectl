@@ -14,7 +14,7 @@ var eOption = new Option<string?>("-e", "Set Energy Performance Preference");
 var tOption = new Option<int?>("-t", "Set TDP (in Watts)");
 var gOption = new Option<int?>("-g", "Enable Gamescope with specified max FPS");
 var mOption = new Option<string?>("-m", "Set display mode, e.g. '1920x1080@120'");
-var pOption = new Option<string?>("-p", "Park CPU cores, e.g. '4,5,6,7'");
+var pOption = new Option<string?>("-p", "Park CPU cores, e.g. '4,5,6-11'");
 var dOption = new Option<bool>("-d", "Daemon mode, for autosetting TDP on AC");
 var cArgument = new Argument<string[]?>("command", () => null, "The command to run");
 
