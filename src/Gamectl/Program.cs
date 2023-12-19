@@ -15,10 +15,10 @@ if (Libc.GetEffectiveUserId() != 0 && !Debugger.IsAttached)
 
 Configuration.LoadConfiguration();
 
-var eOption = new Option<string?>("-e", "Energy Performance Preference");
-var tOption = new Option<int?>("-t", "TDP (in W)");
-var gOption = new Option<int?>("-g", "Enable Gamescope scaling with specified FPS");
-var mOption = new Option<string?>("-m", "Set display mode with format: widthxheight@refreshRate)");
+var eOption = new Option<string?>("-e", "Set Energy Performance Preference");
+var tOption = new Option<int?>("-t", "Set TDP (in Watts)");
+var gOption = new Option<int?>("-g", "Enable Gamescope with specified max FPS");
+var mOption = new Option<string?>("-m", "Set display mode, e.g. '1920x1080@120'");
 var dOption = new Option<bool>("-d", "Daemon mode, for autosetting TDP on AC");
 var cArgument = new Argument<string[]?>("command", () => null, "The command to run");
 

@@ -14,8 +14,8 @@ usage: gamectl <options> -- <command>
 
 -e <epp>    Set Energy Performance Preference
 -t <tdp>    Set TDP (in Watts)
--g <fps>    Enable Gamescope scaling with specified max FPS
--m <wxh@r>  Set display mode, e.g. 1920x1080@120
+-g <fps>    Enable Gamescope with specified max FPS
+-m <wxh@r>  Set display mode, e.g. '1920x1080@120'
 ```
 
 ### Example
