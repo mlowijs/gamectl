@@ -2,8 +2,7 @@ namespace Gamectl;
 
 public static class Configuration
 {
-    private static readonly string[] ConfigurationPaths = new[]
-    {
+    private static readonly string[] ConfigurationPaths = {
         "/etc/gamectl.conf", "~/.config/gamectl.conf"
     };
 
