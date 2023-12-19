@@ -2,6 +2,11 @@
 using System.Diagnostics;
 using Gamectl;
 
+var zz = "trala {Fps}";
+
+var fps = 60;
+var xx = string.Format(zz, fps);
+
 if (Libc.GetEffectiveUserId() != 0 && !Debugger.IsAttached)
 {
     Console.WriteLine("This application must be run suid root");
