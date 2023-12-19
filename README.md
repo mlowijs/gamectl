@@ -27,7 +27,7 @@ Configuration files are read from `/etc/gamectl.conf` and `~/.config/gamectl.con
 ```
 default_tdp = 6                 # TDP to set after game exits
 default_epp = power             # EPP to set after game exits
-default_mode = 1080x1920@60     # Display mode to set after game exits
+default_mode = 1920x1080@60     # Display mode to set after game exits
 
 # Arguments to supply to Gamescope
 gamescope_args = -f -F fsr -h 720 -H 1080 
