@@ -33,7 +33,7 @@ rootCommand.SetHandler((e, t, g, m, p, d, c) =>
     
     if (e is not null)
         Sysfs.SetEnergyPerformancePreference(e);
-
+    
     var coreSpecifications = (p ?? "")
         .Split(",", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
@@ -82,14 +82,14 @@ rootCommand.SetHandler((e, t, g, m, p, d, c) =>
     // Regain privileges
     Libc.SetEffectiveUserId(0);
     
-    if (t is not null && Configuration.DefaultTdp is not null)
-        Ryzenadj.SetTdp(Configuration.DefaultTdp.Value);
+    if (p is not null)
+        Sysfs.SetCpuCorePower(cores, true);
     
     if (e is not null && Configuration.DefaultEpp is not null)
         Sysfs.SetEnergyPerformancePreference(Configuration.DefaultEpp);
     
-    if (p is not null)
-        Sysfs.SetCpuCorePower(cores, true);
+    if (t is not null && Configuration.DefaultTdp is not null)
+        Ryzenadj.SetTdp(Configuration.DefaultTdp.Value);
 }, eOption, tOption, gOption, mOption, pOption, dOption, cArgument);
 
 await rootCommand.InvokeAsync(args);
