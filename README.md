@@ -12,8 +12,8 @@ After the game exits, default values for certain options can be restored.
 ```
 usage: gamectl <options> -- <command>
 
--e          Set Energy Performance Preference
--t          Set TDP (in Watts)
+-e <epp>    Set Energy Performance Preference
+-t <tdp>    Set TDP (in Watts)
 -g <fps>    Enable Gamescope scaling with specified max FPS
 -m <wxh@r>  Set display mode, e.g. 1920x1080@120
 ```
