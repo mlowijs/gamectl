@@ -14,6 +14,7 @@ var eOption = new Option<string?>("-e", "Energy Performance Preference");
 var tOption = new Option<int?>("-t", "TDP (in W)");
 var gOption = new Option<int?>("-g", "Enable Gamescope scaling with specified FPS");
 var mOption = new Option<string?>("-m", "Set display mode with format: widthxheight@refreshRate)");
+var dOption = new Option<bool>("-d", "Daemon mode, for autosetting TDP on AC");
 var cArgument = new Argument<string[]?>("command", () => null, "The command to run");
 
 var rootCommand = new RootCommand();
@@ -23,8 +24,13 @@ rootCommand.AddOption(gOption);
 rootCommand.AddOption(mOption);
 rootCommand.AddArgument(cArgument);
 
-rootCommand.SetHandler((e, t, g, m, c) =>
+rootCommand.SetHandler((e, t, g, m, d, c) =>
 {
+    if (d)
+    {
+        // daemon mode
+    }
+    
     if (t is not null)
         Ryzenadj.SetTdp(t.Value);
     
@@ -55,14 +61,17 @@ rootCommand.SetHandler((e, t, g, m, c) =>
             $"""--what=idle:sleep --who=gamectl --why="Running game" -- {commandToExecute}""")
         .WaitForExit();
 
+    if (m is not null && Configuration.DefaultMode is not null)
+        DisplayMode.SetDisplayMode(Configuration.DefaultMode);
+    
     // Regain privileges
     Libc.SetEffectiveUserId(0);
     
-    if (t is not null)
-        Ryzenadj.SetTdp(Configuration.DefaultTdp);
+    if (t is not null && Configuration.DefaultTdp is not null)
+        Ryzenadj.SetTdp(Configuration.DefaultTdp.Value);
     
-    if (e is not null)
+    if (e is not null && Configuration.DefaultEpp is not null)
         Sysfs.SetEnergyPerformancePreference(Configuration.DefaultEpp);
-}, eOption, tOption, gOption, mOption, cArgument);
+}, eOption, tOption, gOption, mOption, dOption, cArgument);
 
 await rootCommand.InvokeAsync(args);

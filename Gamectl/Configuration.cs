@@ -7,8 +7,9 @@ public static class Configuration
         "/etc/gamectl.conf", "~/.config/gamectl.conf"
     };
 
-    public static int DefaultTdp { get; private set; } = 6;
-    public static string DefaultEpp { get; private set; } = "power";
+    public static int? DefaultTdp { get; private set; }
+    public static string? DefaultEpp { get; private set; }
+    public static string? DefaultMode { get; private set; }
     public static bool DisplayModeOnExternalGpu { get; private set; }
     public static bool GamescopeOnExternalGpu { get; private set; }
     
@@ -36,6 +37,8 @@ public static class Configuration
         {
             case "default_tdp": DefaultTdp = int.Parse(value); break;
             case "default_epp": DefaultEpp = value; break;
+            case "default_mode": DefaultMode = value; break;
+            
             case "display_mode_on_egpu": DisplayModeOnExternalGpu = value == "1"; break;
             case "gamescope_on_egpu": GamescopeOnExternalGpu = value == "1"; break;
         }
