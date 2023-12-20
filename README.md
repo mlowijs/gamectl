@@ -23,6 +23,6 @@ usage: gamectl <options> -- <command>
 `gamectl -e performance -t 8 -- supertuxkart`
 
 ## Configuration
-Configuration files are read from `/etc/gamectl.conf` and `~/.config/gamectl.conf`.
+Configuration files are read from `/etc/gamectl.conf` and `~/.config/gamectl.conf`. A configuration file is not required and `gamectl` assumes sensible defaults where necessary.
 
 An example configuration file can be found [here](src/Gamectl/gamectl.conf).
