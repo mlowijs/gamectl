@@ -25,14 +25,4 @@ usage: gamectl <options> -- <command>
 ## Configuration
 Configuration files are read from `/etc/gamectl.conf` and `~/.config/gamectl.conf`.
 
-```
-default_tdp = 6                 # TDP to set after game exits
-default_epp = power             # EPP to set after game exits
-default_mode = 1920x1080@60     # Display mode to set after game exits
-
-# Arguments to supply to Gamescope
-gamescope_args = -f -F fsr -h 720 -H 1080 
-
-display_mode_on_egpu = 0        # 1 if the display mode should be changed if an eGPU is detected
-gamescope_on_egpu = 0           # 1 if Gamescope scaling should be used if an eGPU is detected
-```
+An example configuration file can be found [here](src/Gamectl/gamectl.conf).
