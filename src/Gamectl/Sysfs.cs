@@ -10,6 +10,17 @@ public static class Sysfs
             File.WriteAllText(Path.Join(policy, "energy_performance_preference"), epp);
     }
 
+    public static int[] GetCpuCores()
+    {
+        return Directory
+            .GetDirectories("/sys/devices/system/cpu", "cpu*")
+            .Select(Path.GetFileName)
+            .Select(d => int.TryParse(d[3..], out var id) ? id : (int?)null)
+            .Where(d => d is not null)
+            .Cast<int>()
+            .ToArray();
+    }
+    
     public static void SetCpuCorePower(IEnumerable<int> cores, bool online)
     {
         foreach (var core in cores)
