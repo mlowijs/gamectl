@@ -1,65 +1,40 @@
+using Tomlyn;
+
 namespace Gamectl;
 
-public static class Configuration
+public class Configuration
 {
     private static readonly string[] ConfigurationPaths = {
-        "/etc/gamectl.conf", "~/.config/gamectl.conf"
+        $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/.config/gamectl.conf",
+        "/etc/gamectl.conf"
     };
 
-    public static int? DefaultTdp { get; private set; }
-    public static string? DefaultEpp { get; private set; }
-    public static string? DefaultMode { get; private set; }
-    public static string? DefaultCoreParking { get; private set; }
-    public static int? ExitTdp { get; private set; }
-    public static string? ExitEpp { get; private set; }
-    public static string? ExitMode { get; private set; }
-    public static string? ExitCoreParking { get; private set; }
-    public static string? GamescopeArguments { get; private set; }
-    public static bool DisplayModeOnExternalGpu { get; private set; }
-    public static bool GamescopeOnExternalGpu { get; private set; }
+    private static Configuration? _values;
+
+    public static Configuration Values => _values ??= ReadConfiguration();
     
-    public static void LoadConfiguration()
+    public int? DefaultTdp { get; set; }
+    public string? DefaultEpp { get; set; }
+    public string? DefaultDisplayMode { get; set; }
+    public string? DefaultParkedCores { get; set; }
+    public int? ExitTdp { get; set; }
+    public string? ExitEpp { get; set; }
+    public string? ExitDisplayMode { get; set; }
+    public string? ExitParkedCores { get; set; }
+    public string? GamescopeArguments { get; set; }
+    public bool DisplayModeOnExternalGpu { get; set; }
+    public bool GamescopeOnExternalGpu { get; set; }
+
+    private static Configuration ReadConfiguration()
     {
         foreach (var path in ConfigurationPaths)
         {
             if (!File.Exists(path))
                 continue;
-
-            var lines = File.ReadAllLines(path);
-
-            foreach (var line in lines.Where(l => !string.IsNullOrWhiteSpace(l)))
-            {
-                var entryAndComment = line.Split("#", 2, StringSplitOptions.TrimEntries);
-                var entry = entryAndComment[0];
-                
-                if (string.IsNullOrWhiteSpace(entry) || !entry.Contains('='))
-                    continue;
-                
-                var keyValue = entry.Split("=", 2, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-
-                SetProperties(keyValue[0], keyValue[1]);
-            }
-        }
-    }
-
-    private static void SetProperties(string key, string value)
-    {
-        switch (key)
-        {
-            case "default_tdp": DefaultTdp = int.Parse(value); break;
-            case "default_epp": DefaultEpp = value; break;
-            case "default_mode": DefaultMode = value; break;
-            case "default_core_parking": DefaultCoreParking = value; break;
             
-            case "exit_tdp": ExitTdp = int.Parse(value); break;
-            case "exit_epp": ExitEpp = value; break;
-            case "exit_mode": ExitMode = value; break;
-            case "exit_core_parking": ExitCoreParking = value; break;
-
-            case "gamescope_args": GamescopeArguments = value; break;
-            
-            case "display_mode_on_egpu": DisplayModeOnExternalGpu = value == "1"; break;
-            case "gamescope_on_egpu": GamescopeOnExternalGpu = value == "1"; break;
+            return Toml.ToModel<Configuration>(File.ReadAllText(path));
         }
+
+        return new();
     }
 }
