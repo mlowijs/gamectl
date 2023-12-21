@@ -1,4 +1,4 @@
-namespace Gamectl;
+namespace Gamerun;
 
 public static class Sysfs
 {

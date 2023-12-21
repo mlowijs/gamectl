@@ -5,8 +5,12 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>gamectl</AssemblyName>
+        <AssemblyName>gamerun</AssemblyName>
         <IsPackable>false</IsPackable>
+        <PackageId>gamerun</PackageId>
+        <Authors>gamerun</Authors>
+        <Company>gamerun</Company>
+        <Product>gamerun</Product>
     </PropertyGroup>
 
     <ItemGroup>

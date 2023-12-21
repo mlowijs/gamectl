@@ -1,8 +1,8 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Gamectl.Kde;
+using Gamerun.Kde;
 
-namespace Gamectl;
+namespace Gamerun;
 
 public static class DisplayMode
 {

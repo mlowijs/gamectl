@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Gamectl;
+namespace Gamerun;
 
 public static class Ryzenadj
 {

@@ -1,16 +1,16 @@
-# Gamectl
+# Gamerun
 Tools for running games on Linux handheld devices.
 
-Currently, `gamectl` assumes an AMD APU, the KDE desktop environment and the availability of `ryzenadj`.
-Because some of the operations `gamectl` executes are privileged, `gamectl` should be run SUID root.
+Currently, `gamerun` assumes an AMD APU, the KDE desktop environment and the availability of `ryzenadj`.
+Because some of the operations `gamerun` executes are privileged, `gamerun` should be run SUID root.
 
 ## Usage
-`gamectl` is used as a wrapper around launching games on Linux.
+`gamerun` is used as a wrapper around launching games on Linux.
 It can be used stand-alone, or in Steam's launch options.
 After the game exits, values for certain options can be restored.
 
 ```
-usage: gamectl <options> -- <command>
+usage: gamerun <options> -- <command>
 
 -e <epp>    Set Energy Performance Preference
 -g <fps>    Enable Gamescope with specified max FPS
@@ -20,12 +20,12 @@ usage: gamectl <options> -- <command>
 ```
 
 ### Example from command line
-`gamectl -e performance -t 8 -- supertuxkart`
+`gamerun -e performance -t 8 -- supertuxkart`
 
 ### Example from Steam launch options
-`gamectl -e power -t 3 -p 2-7,10-15 -- %command%`
+`gamerun -e power -t 3 -p 2-7,10-15 -- %command%`
 
 ## Configuration
-Configuration files are read from `~/.config/gamectl.conf` or `/etc/gamectl.conf`. A configuration file is not required and `gamectl` assumes sensible defaults where necessary.
+Configuration files are read from `~/.config/gamerun.conf` or `/etc/gamerun.conf`. A configuration file is not required and `gamerun` assumes sensible defaults where necessary.
 
-An example configuration file can be found [here](src/Gamectl/gamectl.conf).
+An example configuration file can be found [here](src/Gamerun/gamerun.conf).

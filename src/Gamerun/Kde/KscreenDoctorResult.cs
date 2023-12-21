@@ -1,4 +1,4 @@
-namespace Gamectl.Kde;
+namespace Gamerun.Kde;
 
 public record KscreenDoctorResult(
     KscreenDoctorOutput[] Outputs);

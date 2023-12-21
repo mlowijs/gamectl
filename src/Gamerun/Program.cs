@@ -1,6 +1,6 @@
 ﻿using System.CommandLine;
 using System.Diagnostics;
-using Gamectl;
+using Gamerun;
 
 if (Libc.GetEffectiveUserId() != 0 && !Debugger.IsAttached)
 {
@@ -45,7 +45,7 @@ var rootCommand = CommandLine.CreateRootCommand((e, g, m, p, t, c) =>
     Process
         .Start(
             "systemd-inhibit",
-            $"""--what=idle:sleep --who=gamectl --why="Running game" -- {commandToExecute}""")
+            $"""--what=idle:sleep --who=gamerun --why="Running game" -- {commandToExecute}""")
         .WaitForExit();
 
     if (Configuration.Values.ExitDisplayMode is not null)

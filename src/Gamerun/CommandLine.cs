@@ -1,6 +1,6 @@
 using System.CommandLine;
 
-namespace Gamectl;
+namespace Gamerun;
 
 public static class CommandLine
 {

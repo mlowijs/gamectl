@@ -1,12 +1,12 @@
 using Tomlyn;
 
-namespace Gamectl;
+namespace Gamerun;
 
 public class Configuration
 {
     private static readonly string[] ConfigurationPaths = {
-        $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/.config/gamectl.conf",
-        "/etc/gamectl.conf"
+        $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/.config/gamerun.conf",
+        "/etc/gamerun.conf"
     };
 
     private static Configuration? _values;
