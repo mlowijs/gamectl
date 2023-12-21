@@ -30,4 +30,9 @@ public static class Sysfs
                 File.WriteAllText(path, online ? "1" : "0");
         }
     }
+    
+    public static string[] GetDrmCards()
+    {
+        return Directory.GetDirectories("/sys/class/drm", "card?");
+    }
 }

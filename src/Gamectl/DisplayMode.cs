@@ -10,7 +10,7 @@ public static class DisplayMode
     
     public static void SetDisplayMode(string mode)
     {
-        if (Drm.GetCards().Length > 1 && !Configuration.Values.DisplayModeOnExternalGpu)
+        if (Sysfs.GetDrmCards().Length > 1 && !Configuration.Values.DisplayModeOnExternalGpu)
             return;
         
         var match = ModeRegex.Match(mode);
