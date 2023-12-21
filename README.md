@@ -26,6 +26,6 @@ usage: gamectl <options> -- <command>
 `gamectl -e power -t 3 -p 2-7,10-15 -- %command%`
 
 ## Configuration
-Configuration files are read from `/etc/gamectl.conf` and `~/.config/gamectl.conf`. A configuration file is not required and `gamectl` assumes sensible defaults where necessary.
+Configuration files are read from `~/.config/gamectl.conf` or `/etc/gamectl.conf`. A configuration file is not required and `gamectl` assumes sensible defaults where necessary.
 
 An example configuration file can be found [here](src/Gamectl/gamectl.conf).
