@@ -11,6 +11,8 @@ public static class Functions
         {
             foreach (var core in Sysfs.GetCpuCores())
                 yield return core;
+            
+            yield break;
         }
     
         var coreStrings = coreSpecification
