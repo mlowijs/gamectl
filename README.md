@@ -19,8 +19,11 @@ usage: gamectl <options> -- <command>
 -t <tdp>    Set TDP (in Watts)
 ```
 
-### Example
+### Example from command line
 `gamectl -e performance -t 8 -- supertuxkart`
+
+### Example from Steam launch options
+`gamectl -e power -t 3 -p 2-7,10-15 -- %command%`
 
 ## Configuration
 Configuration files are read from `/etc/gamectl.conf` and `~/.config/gamectl.conf`. A configuration file is not required and `gamectl` assumes sensible defaults where necessary.
