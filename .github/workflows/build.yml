@@ -19,7 +19,7 @@ jobs:
     - name: Build
       run: dotnet publish -r linux-x64 --self-contained -p:PublishSingleFile=true -p:PublishReadyToRun=true -p:StripSymbols=true -c Release -o publish src/Gamerun/Gamerun.csproj
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@4.0.0
+      uses: actions/upload-artifact@v4.0.0
       with:
         path: src/Gamerun/publish/gamerun
       
