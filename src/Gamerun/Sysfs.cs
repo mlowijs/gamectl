@@ -15,7 +15,7 @@ public static class Sysfs
         return Directory
             .GetDirectories("/sys/devices/system/cpu", "cpu*")
             .Select(Path.GetFileName)
-            .Select(d => int.TryParse(d[3..], out var id) ? id : (int?)null)
+            .Select(d => int.TryParse(d![3..], out var id) ? id : (int?)null)
             .Where(d => d is not null)
             .Cast<int>();
     }
