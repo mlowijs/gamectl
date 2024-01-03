@@ -43,7 +43,7 @@ var rootCommand = CommandLine.CreateRootCommand((e, g, m, p, t, c) =>
     }
     
     var commandString = string.Join(' ', c);
-    var commandToExecute = g is not null ? Gamescope.GetGamescopeCommandLine(g.Value, commandString) : commandString;
+    var commandToExecute = g ? Gamescope.GetGamescopeCommandLine(commandString) : commandString;
 
     Process
         .Start(
