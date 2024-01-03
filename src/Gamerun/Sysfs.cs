@@ -30,6 +30,19 @@ public static class Sysfs
                 File.WriteAllText(path, online ? "1" : "0");
         }
     }
+
+    public static bool IsBatteryChargerConnected()
+    {
+        foreach (var acPath in Directory.EnumerateDirectories("/sys/class/power_supply", "*AC*"))
+        {
+            var onlinePath = Path.Join(acPath, "online");
+
+            if (File.Exists(onlinePath))
+                return File.ReadAllText(onlinePath).TrimEnd() == "1";
+        }
+
+        return false;
+    }
     
     public static string[] GetDrmCards()
     {

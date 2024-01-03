@@ -13,7 +13,8 @@ public class Configuration
 
     public static Configuration Values => _values ??= ReadConfiguration();
     
-    public int? DefaultTdp { get; set; }
+    public int? DefaultDcTdp { get; set; }
+    public int? DefaultAcTdp { get; set; }
     public string? DefaultEpp { get; set; }
     public string? DefaultDisplayMode { get; set; }
     public string? DefaultParkedCores { get; set; }

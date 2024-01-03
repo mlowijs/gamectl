@@ -15,11 +15,14 @@ var rootCommand = CommandLine.CreateRootCommand((e, g, m, p, t, c) =>
         Console.WriteLine("Command argument is required.");
         return;
     }
-    
-    var tdp = t ?? Configuration.Values.DefaultTdp;
+
+    var tdp = Sysfs.IsBatteryChargerConnected()
+        ? Configuration.Values.DefaultAcTdp ?? t
+        : t ?? Configuration.Values.DefaultDcTdp;
+        
     if (tdp is not null)
         Ryzenadj.SetTdp(tdp.Value);
-
+    
     var epp = e ?? Configuration.Values.DefaultEpp;
     if (epp is not null)
         Sysfs.SetEnergyPerformancePreference(epp);
