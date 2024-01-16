@@ -1,0 +1,10 @@
+[Unit]
+Description=Gamerun daemon
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/gamerun -d
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
