@@ -25,6 +25,8 @@ public class Configuration
     public string? GamescopeArguments { get; set; }
     public bool DisplayModeOnExternalGpu { get; set; }
     public bool GamescopeOnExternalGpu { get; set; }
+    public int? DaemonDcTdp { get; set; }
+    public int? DaemonAcTdp { get; set; }
 
     private static Configuration ReadConfiguration()
     {

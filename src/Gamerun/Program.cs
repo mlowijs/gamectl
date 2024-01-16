@@ -1,6 +1,8 @@
 ﻿using System.CommandLine;
 using System.Diagnostics;
 using Gamerun;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 if (Libc.GetEffectiveUserId() != 0 && !Debugger.IsAttached)
 {
@@ -8,15 +10,30 @@ if (Libc.GetEffectiveUserId() != 0 && !Debugger.IsAttached)
     return;
 }
 
-var rootCommand = CommandLine.CreateRootCommand((e, g, m, p, t, c) =>
+var rootCommand = CommandLine.CreateRootCommand((d, e, g, m, p, t, c) =>
 {
+    if (d)
+    {
+        var app = Host.CreateDefaultBuilder()
+            .ConfigureServices(services =>
+            {
+                services.AddHostedService<DaemonBackgroundService>();
+            })
+            .UseSystemd()
+            .Build();
+    
+        app.Run();
+        
+        return;
+    }
+    
     if (c.Length == 0)
     {
         Console.WriteLine("Command argument is required.");
         return;
     }
 
-    var tdp = Sysfs.IsBatteryChargerConnected()
+    var tdp = Sysfs.GetBatteryChargerConnected()
         ? Configuration.Values.DefaultAcTdp ?? t
         : t ?? Configuration.Values.DefaultDcTdp;
         

@@ -31,7 +31,7 @@ public static class Sysfs
         }
     }
 
-    public static bool IsBatteryChargerConnected()
+    public static bool GetBatteryChargerConnected()
     {
         foreach (var acPath in Directory.EnumerateDirectories("/sys/class/power_supply", "*AC*"))
         {

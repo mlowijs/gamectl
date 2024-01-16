@@ -4,8 +4,9 @@ namespace Gamerun;
 
 public static class CommandLine
 {
-    public static RootCommand CreateRootCommand(Action<string?, bool, string?, string?, int?, string[]> action)
+    public static RootCommand CreateRootCommand(Action<bool, string?, bool, string?, string?, int?, string[]> action)
     {
+        var dOption = new Option<bool>("-d", "Run as daemon");
         var eOption = new Option<string?>("-e", "Set Energy Performance Preference");
         var gOption = new Option<bool>("-g", "Enable Gamescope");
         var mOption = new Option<string?>("-m", "Set display mode, e.g. '1920x1080@120'");
@@ -15,6 +16,7 @@ public static class CommandLine
         var cArgument = new Argument<string[]>("command", "The command to run");
 
         var rootCommand = new RootCommand();
+        rootCommand.AddOption(dOption);
         rootCommand.AddOption(eOption);
         rootCommand.AddOption(tOption);
         rootCommand.AddOption(gOption);
@@ -22,7 +24,7 @@ public static class CommandLine
         rootCommand.AddOption(pOption);
         rootCommand.AddArgument(cArgument);
         
-        rootCommand.SetHandler(action, eOption, gOption, mOption, pOption, tOption, cArgument);
+        rootCommand.SetHandler(action, dOption, eOption, gOption, mOption, pOption, tOption, cArgument);
 
         return rootCommand;
     }

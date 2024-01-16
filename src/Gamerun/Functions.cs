@@ -20,16 +20,16 @@ public static class Functions
 
         foreach (var coreString in coreStrings)
         {
-            var coreNumbers = coreString
+            var coreIds = coreString
                 .Split('-', 2, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToArray();
 
-            if (coreNumbers.Length == 1)
-                yield return coreNumbers[0];
+            if (coreIds.Length == 1)
+                yield return coreIds[0];
             else
             {
-                foreach (var core in Enumerable.Range(coreNumbers[0], coreNumbers[1] - coreNumbers[0] + 1))
+                foreach (var core in Enumerable.Range(coreIds[0], coreIds[1] - coreIds[0] + 1))
                     yield return core;
             }
         }
