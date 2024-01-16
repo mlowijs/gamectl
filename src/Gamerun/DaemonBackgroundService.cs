@@ -3,16 +3,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Gamerun;
 
-public class DaemonBackgroundService : BackgroundService
+public class DaemonBackgroundService(ILogger<DaemonBackgroundService> logger) : BackgroundService
 {
     private static readonly TimeSpan QueryInterval = TimeSpan.FromSeconds(1);
-
-    private readonly ILogger<DaemonBackgroundService> _logger;
-
-    public DaemonBackgroundService(ILogger<DaemonBackgroundService> logger)
-    {
-        _logger = logger;
-    }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -31,7 +24,7 @@ public class DaemonBackgroundService : BackgroundService
                 if (tdp is not null)
                 {
                     Ryzenadj.SetTdp(tdp.Value);
-                    _logger.LogInformation("Set TDP to {Tdp}", tdp);
+                    logger.LogInformation("Set TDP to {Tdp}", tdp);
                 }
             }
             
